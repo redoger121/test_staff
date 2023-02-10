@@ -1,0 +1,76 @@
+{% extends 'authapp/base2.html' %}
+
+{% block content %}
+
+         <section class="login-section">
+
+            <div class="login__wrapepr">
+                <div class="login__left-side">
+                    <div class="authpage__welcome-inner">
+                        <h1>Добро пожаловать!</h1>
+                        <p>Надеюсь, вам уже нравится у нас, а зарегистрировавшись вы сможете:</p>
+
+                        <ul class="offer-list">
+                            <li>просматривать списки ваших предпочтений и историю прохождений;</li>
+                            <li>устанавливать персональные настройки выдачи тестов;</li>
+                            <li>получать вакансии соответствующие вашим навыкам</li>
+                        </ul>
+
+
+                    </div>
+                </div>
+
+                <div class="login__right-side">
+                    <div class="innerwrap">
+                        <div class="login-butons__wrapper">
+                            <a href="{% url 'auth:login' %}" class="login__buttton ">Вход</a>
+                            <a href="{% url 'auth:register' %}" class="login__buttton active">Регистрация</a>
+                        </div>
+
+                        <form action="" class="login__form" method="post">
+{% csrf_token %}
+                            <div class="login-input__wrapper">
+                                {{register_form.username}}
+
+                                <div class="input-icon"></div>
+                            </div>
+
+                            <div class="password__wrapper">
+                                {{register_form.email}}
+
+                                <div class="email-icon"></div>
+                            </div>
+
+                            <div class="password__wrapper">
+                                {{register_form.password1}}
+                                <div class="password-icon"></div>
+                                <div class="password__control"></div>
+
+                            </div>
+                            <div class="password__wrapper">
+                                {{register_form.password2}}
+
+                                <div class="password-icon"></div>
+                                <div class="password__control"></div>
+
+                            </div>
+
+                            <div class="acceptance">
+                        <p>Регистрируясь вы соглашаетесь с:</p>
+                        <a href="">Правилами сайта</a>
+                        <a href="">Политикой конфеденциальности</a>
+                            </div>
+
+                            <input class="login-submit" type="submit" value="Зарегистрироваться">
+
+                        </form>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+{% endblock %}

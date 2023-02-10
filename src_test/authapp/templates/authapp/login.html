@@ -1,0 +1,57 @@
+{% extends 'authapp/base2.html' %}
+
+{% block content %}
+
+  <section class="login-section">
+
+            <div class="login__wrapepr">
+                <div class="login__left-side">
+                    <div class="authpage__welcome-inner">
+                        <h1>С возвращением!</h1>
+                        <p>Для авторизации воспользуйтесь формой входа, а если у вас еще нет аккаунта воспользуйтесь
+                            ссылкой "Регистрация" над формой.</p>
+                    </div>
+                </div>
+
+                <div class="login__right-side">
+                    <div class="innerwrap">
+                        <div class="login-butons__wrapper">
+                            <a href="" class="login__buttton active">Вход</a>
+                            <a href="{% url 'auth:register' %}" class="login__buttton">Регистрация</a>
+                        </div>
+
+                        <form action="" class="login__form" method="post">
+                            {% csrf_token %}
+                            <div class="login-input__wrapper">
+
+                                {{login_form.username}}
+
+                                <div class="input-icon"></div>
+                            </div>
+
+                            <div class="password__wrapper">
+                                {{login_form.password}}
+
+                                <div class="password-icon"></div>
+                                <div class="password__control"></div>
+
+                            </div>
+
+
+                            <input class="login-submit" type="submit" value="Войти">
+
+                        </form>
+
+                        <p class="or">
+                            <span>или</span>
+                        </p>
+
+                        <a href="{% url 'social:begin' 'vk-oauth2' %}?next=/" class="vk-login">Войти через vk</a>
+
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+{% endblock %}

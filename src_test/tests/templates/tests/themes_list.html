@@ -1,0 +1,19 @@
+{% extends 'tests/base.html'%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{%block content%}
+{%for theme in themes_list%}
+<p><a href="{% url 'tests:tests_by_theme' theme.pk%}">{{theme.name}}</a></p>
+<hr>
+{%endfor%}
+{%endblock%}
+
+
+
+</body>
+</html>

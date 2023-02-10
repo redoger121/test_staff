@@ -1,0 +1,88 @@
+{% extends 'passing_test/base.html' %}
+
+{%block content%}
+
+<section class="test__section ">
+    <div class="user__container test__container">
+        <h1 class="test__title">{{test.name}}</h1>
+        {%for question in questions%}
+        <div class="test__wrapper">
+
+
+            <p class="test__question">{{question.name}}</p>
+
+
+            {%for answer in answers%}
+
+
+            {%if answer.for_question_id == question.pk and answer.answer_is_true == True and answer.real_answer == True%}
+
+              <div class="answer__wrapper">
+                                <p class="answer__text">{{answer.name}}</p>
+
+                                    <div class="answer__result real-answer__result">
+                                        <svg class="correct-answer real-answer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px" height="30px">
+                                            <path
+                                                d="M 26.980469 5.9902344 A 1.0001 1.0001 0 0 0 26.292969 6.2929688 L 11 21.585938 L 4.7070312 15.292969 A 1.0001 1.0001 0 1 0 3.2929688 16.707031 L 10.292969 23.707031 A 1.0001 1.0001 0 0 0 11.707031 23.707031 L 27.707031 7.7070312 A 1.0001 1.0001 0 0 0 26.980469 5.9902344 z" />
+                                        </svg>
+                                    </div>
+                            </div>
+{%endif%}
+
+            {%if answer.for_question_id == question.pk and answer.answer_is_true == True and answer.real_answer == False %}
+
+   <div class="answer__wrapper">
+                <p class="answer__text">{{answer.name}}</p>
+                <div class="answer__result  uncorrect-answer__wrapper">
+                    <svg class="uncorrect-answer" width="800px" height="800px" viewBox="0 0 24 24" fill="#FFCA28"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 6L18 18" stroke-linecap="round"/>
+                        <path d="M18 6L6.00001 18" stroke-linecap="round"/>
+                    </svg>
+                </div>
+            </div>
+            {%endif%}
+
+
+
+               {%if answer.for_question_id == question.pk and answer.answer_is_true == False and answer.real_answer == False %}
+   <div class="answer__wrapper">
+                <p class="answer__text">{{answer.name}}</p>
+                <div class="answer__result ">
+
+                </div>
+            </div>
+            {%endif%}
+    {%if answer.for_question_id == question.pk and answer.answer_is_true == False and answer.real_answer == True %}
+   <div class="answer__wrapper">
+                <p class="answer__text">{{answer.name}}</p>
+                <div class="answer__result ">
+
+                </div>
+            </div>
+            {%endif%}
+
+
+
+
+
+            {%endfor%}
+
+
+
+
+
+
+</div>
+            {%endfor%}
+
+        <div class="test__conclusion">
+                        Тест пройден на {{test.score|floatformat:"0"}}/100
+                     </div>
+    </div>
+
+</section>
+
+
+{% endblock %}
+

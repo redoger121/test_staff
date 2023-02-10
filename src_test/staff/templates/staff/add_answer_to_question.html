@@ -1,0 +1,79 @@
+{% extends 'staff/base.html'%}
+
+{%block content%}
+
+
+<section class="test__section ">
+    <div class="user__container test__container">
+        <h1 class="test__title">{{test.name}}</h1>
+
+
+
+            <div class="test__wrapper" >
+
+
+                <p class="test__question">{{question.name}}</p>
+  <form action="" id="form-container" method="post">
+   {% csrf_token %}
+                {{formset.management_form}}
+                {% for form in formset %}
+                <div class="answer__wrapper test-form">
+
+                        {{form.name}}
+                    {{form.for_question}}
+   {{form.answer_is_true}}
+{{form.id}}
+
+
+                </div>
+                {% endfor %}
+
+
+
+  <button class="info__save-button test__button" id="add-form" type="button">Добавить ответ</button>
+            <button class="info__save-button test__button" type="submit">Сохранить</button>
+
+
+        </form>
+
+            </div>
+
+    </div>
+</section>
+
+
+<script>
+
+
+        let container = document.querySelector("#form-container")
+        let addButton = document.querySelector("#add-form")
+        let totalForms = document.querySelector("#id_form-TOTAL_FORMS")
+
+        var hasRun = false;
+
+        addButton.addEventListener('click', addForm)
+
+        function addForm(e){
+            e.preventDefault()
+            let testForm = document.querySelectorAll(".test-form")
+            let formNum = testForm.length-1
+            console.log(formNum);
+            let newForm = testForm[formNum].cloneNode(true)
+
+            let formRegex = RegExp(`form-(\\d){1}-`,'g')
+
+            formNum++
+
+            newForm.innerHTML = newForm.innerHTML.replace(formRegex, `form-${formNum}-`)
+             newForm.innerHTML = newForm.innerHTML.replace('question__input', 'check')
+            container.insertBefore(newForm, addButton)
+
+            totalForms.setAttribute('value', `${formNum+1}`)
+
+
+        }
+
+
+
+</script>
+{%endblock%}

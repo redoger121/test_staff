@@ -1,0 +1,71 @@
+{% extends 'staff/base.html'%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{%block content%}
+<section class="test__section ">
+    <div class="user__container test__container">
+
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+  {{test_form.creator}}
+
+            <div class="test__wrapper">
+
+                {{test_form.name}}
+
+            </div>
+
+            <div class="test-settings">
+                <div class="function-block">
+                    <div class="test__theme-input">
+                        <p class="answer__text answer__text-form">Выберите тему тестирования</p>
+
+                        {{test_form.theme_id}}
+
+                    </div>
+
+                    <div class="test__image-input">
+                        <img class="lol-image" src="/media/{{name.image |default:'../../../media/images/ecdbbf274b437f948cc11d401fe010b1.jpg'}}" alt="">
+
+
+                        <div class="input-file-row">
+                            <label class="input-file">
+                                {{test_form.image}}
+
+                                <span class="img-input">Выберите файл</span>
+                            </label>
+
+                            <div class="input-file-list"></div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+   <div class="test__wrapper">
+
+                {{test_form.description}}
+
+            </div>
+
+  {%if not name.pk%}
+       <input class="info__save-button test__button" type="submit" value="Сохранить" >
+     {%else%}
+             <a  class="info__save-button test__button" href="{% url 'staff:add_questions_to_test' name.pk %}">
+            Далее
+           </a>
+     {%endif%}
+
+
+        </form>
+
+    </div>
+</section>
+{%endblock%}
+</body>
+</html>

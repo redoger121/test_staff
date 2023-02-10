@@ -1,0 +1,97 @@
+{%extends 'adminapp/base2.html'%}
+
+{% block content%}
+
+<section class="user-page__top-row">
+    <div class="container">
+        <div class="user-page__top-row__wrapper">
+            <div class="top-row__left-side">
+                   <div class="top-row__left-side--wrapper">
+                    <p>Администрирование</p>
+                </div>
+
+                <div class="top-row__left-side--wrapper">
+                    <a href="{%url 'auth:user_bio'%}">
+                        <img src="../../../../media/images/logout.svg" alt="" class="account-actions">
+                    </a>
+                </div>
+            </div>
+
+            <div class="top-row__right-side">
+
+                <a href="{% url 'admin:admin_panel'%}" class="account__info">Редактирование</a>
+                <a href="{% url 'admin:users'%}" class="account__info ">Пользователи</a>
+                <a href="{% url 'admin:show_parsers_url'%}" class="account__info active">Ссылки вакансий</a>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+<section class="themes__section ">
+    <div class="container">
+        <div class="admin-page">
+
+            <div class="admin-page__left">
+                <a href="{% url 'admin:users'%}" class="admin__left-item ">Пользователи</a>
+                <a href="{% url 'admin:admin_panel'%}" class="admin__left-item">Редактирование тестов и тем</a>
+                <a href="" class="admin__left-item active">Ссылки для сбора вакансий</a>
+            </div>
+
+
+            <div class="admin-page__right">
+
+                <h1 class="heading__theme-title">Темы</h1>
+
+                <form action="" class="find-form users__find-form">
+                    <input type="text" class="find-input test-sort__find-input "
+                           placeholder="Введите названеи темы">
+                    <input type="submit" value="" class="find form__find-button test-sort__find-button"></input>
+                </form>
+
+                {%for theme in themes%}
+
+                <div class="theme__full-info">
+                    <p class="theme__name">{{theme.name}}</p>
+                    <p class="vacancies__num">Количество вакансий:
+                        {%for vacancy in vacinsies_list%}
+                        {%if theme.pk == vacancy.theme%}
+                        {{vacancy.vacancies_num}}
+                        {%endif%}
+                        {%endfor%}
+                    </p>
+
+                    <div class="box-1">
+                        <a class="btn btn-one" href="#1">
+                            <span>Управление ссылками для вакансий</span>
+                        </a>
+                    </div>
+
+
+                    <form action="" class="vacancies__urls" method="post">
+                        {% csrf_token %}
+                        {{urls_form.management_form}}
+                        {% for form in urls_form %}
+                        {% if form.theme.value == theme.pk%}
+                        {{form.as_p}}
+                        {%endif%}
+                        {%endfor%}
+                        <button class="btn-22" type="submit">
+                            <span>Сохранить</span>
+                        </button>
+                    </form>
+                </div>
+
+
+                {%endfor%}
+
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+{%endblock%}

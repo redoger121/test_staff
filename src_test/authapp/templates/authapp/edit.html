@@ -1,0 +1,137 @@
+{% extends 'tests/base.html' %}
+
+
+{%block content%}
+
+<section class="user-page__top-row">
+    <div class="user__container">
+        <div class="user-page__top-row__wrapper">
+            <div class="top-row__left-side">
+                <div class="top-row__left-side--wrapper">
+                    <p>Настройки профиля</p>
+                </div>
+
+                <div class="top-row__left-side--wrapper">
+                    <a href="{%url 'auth:user_bio'%}">
+                        <img src="../../media/images/logout.svg" alt="" class="account-actions">
+                    </a>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</section>
+
+
+<section class="user-profile__section">
+    <div class="user__container">
+        <div class="user-profile">
+            <div class="user__short-info__wrapper">
+                <div class="user__short-info">
+                    <img src=" /media/{{ edit_form.avatar.value}}" alt=""
+                         class="profile__avatar lol-image">
+                    <p class="username">{{edit_form.username.value}}</p>
+                    <p class="registration-date">На сайте с {{edit_form.date_joined.value}}</p>
+
+
+                </div>
+                <a href="{% url 'auth:change_password' %}" class="new-password">Изменить пароль</a>
+            </div>
+
+
+            <form class="user__full-info" enctype="multipart/form-data" method="post" action="{% url 'auth:edit' %}">
+                {% csrf_token %}
+
+                <div class="full-info__row">
+                    <p class="row__name">логин</p>
+
+                    {{ edit_form.username }}
+
+                </div>
+                <div class="full-info__row">
+                    <p class="row__name">Имя</p>
+                    {{ edit_form.first_name }}
+                </div>
+                <div class="full-info__row">
+                    <p class="row__name">Фамилия</p>
+                    {{ edit_form.last_name }}
+                </div>
+                <div class="full-info__row">
+                    <p class="row__name">Адрес электронной почты</p>
+                    {{ edit_form.email }}
+                </div>
+                <div class="full-info__row">
+                    <p class="row__name">Возраст</p>
+                    {{ edit_form.age }}
+
+                </div>
+                <div class="full-info__row">
+                    <p class="row__name">О себе</p>
+                    {{ profile_form.aboutMe }}
+                </div>
+
+                <div class="full-info__row">
+                    <p class="row__name">Пол</p>
+                    {{ profile_form.gender }}
+                </div>
+
+
+                <div class="full-info__row">
+                    <p class="row__name">Дата регистрации</p>
+                    {{ edit_form.date_joined }}
+                </div>
+                <div class="full-info__row">
+                    <p class="row__name">Изменить изображение профиля</p>
+                    <div class="input-file-row">
+                        <label class="input-file">
+                            {{ edit_form.avatar }}
+
+                            <span class="img-input">Выберите файл</span>
+                        </label>
+                        <div class="input-file-list"></div>
+                    </div>
+                </div>
+
+
+                <input type="submit" value="Сохранить" class="info__save-button">
+
+
+            </form>
+
+
+        </div>
+    </div>
+</section>
+
+{%endblock%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

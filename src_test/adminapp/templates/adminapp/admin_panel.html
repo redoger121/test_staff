@@ -1,0 +1,241 @@
+{% extends 'adminapp/base2.html'%}
+
+
+{%block content%}
+
+<section class="user-page__top-row">
+    <div class="container">
+        <div class="user-page__top-row__wrapper">
+            <div class="top-row__left-side">
+                <div class="top-row__left-side--wrapper">
+                    <p>Администрирование</p>
+                </div>
+
+                <div class="top-row__left-side--wrapper">
+                    <a href="{%url 'auth:user_bio'%}">
+                        <img src="../../../media/images/logout.svg" alt="" class="account-actions">
+                    </a>
+                </div>
+            </div>
+
+            <div class="top-row__right-side">
+                <a href="" class="account__info   {% if request.path == '/admin/admin/panel/'%} active {%endif%}">Редактирование</a>
+                <a href="{% url 'admin:users'%}" class="account__info ">Пользователи</a>
+
+                <a href="{% url 'admin:show_parsers_url'%}" class="account__info">Ссылки вакансий</a>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+<section class="themes__top-line admin__top-line">
+    <div class="container">
+        <div class="admin-page">
+
+            <div class="admin-page__left">
+                <a href="{% url 'admin:users'%}" class="admin__left-item">Пользователи</a>
+                <a href="" class="admin__left-item active">Редактирование тестов и тем</a>
+                <a href="{% url 'admin:show_parsers_url'%}" class="admin__left-item">Ссылки для сбора вакансий</a>
+            </div>
+
+
+            <div class="admin-page__right">
+
+                <h1 class="heading__theme-title">Темы</h1>
+                <span class="toggle_themes_list">Показать все темы</span>
+
+
+                <div class="themes__wrapper themes__wrapper-admin">
+
+
+                    <div class="theme-item-link__wpapper">
+                        <div class="theme-item-link admin__theme  theme__add">
+                            <div class="theme-item-info"
+                                 style="background-image: url('../../../media/images/new_theme.png');">
+                                Новая тема
+
+                            </div>
+                        </div>
+                    </div>
+
+                    {%for theme in themes%}
+
+                    <div class="theme-item-link__wpapper">
+                        <a class="theme-item-link admin__theme" href="#">
+
+                            <div class="theme-item-info"
+                                 style="background-image: url('/media/{{theme.image|default:'../../../media/images/new_theme.png'}}');">
+                                {{theme.name}}
+
+                            </div>
+
+                        </a>
+
+                        <a href="#{{theme.pk}}" rel="modal:open" class="theme__edit">
+
+                            <svg class="theme__edit-icon" id="Layer_1"
+                                 style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512"
+                                 xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+                                 xmlns:xlink="http://www.w3.org/1999/xlink">
+                                        <style type="text/css">
+
+                                        </style>
+                                <g>
+                                            <g>
+                                                <path class="st0"
+                                                      d="M328.7,398.6H155.6c-24.7,0-44.7-20.1-44.7-44.7V180.7c0-24.7,20.1-44.7,44.7-44.7h105.6c11,0,20,9,20,20    s-9,20-20,20H155.6c-2.6,0-4.7,2.1-4.7,4.7v173.1c0,2.6,2.1,4.7,4.7,4.7h173.1c2.6,0,4.7-2.1,4.7-4.7V251.2c0-11,9-20,20-20    s20,9,20,20v102.7C373.4,378.5,353.4,398.6,328.7,398.6z"/>
+                                            </g>
+                                    <g>
+                                                <g>
+                                                    <rect class="st0" height="116"
+                                                          transform="matrix(-0.6844 -0.7291 0.7291 -0.6844 329.9216 582.7335)"
+                                                          width="50.9" x="265.7" y="162"/>
+                                                </g>
+                                        <g>
+                                                    <path class="st0"
+                                                          d="M354.8,135.9l24.3,25.9c2.9,3.1,2.8,8-0.3,10.9l-21.8,20.5L322,156l21.8-20.5     C347,132.6,351.8,132.8,354.8,135.9z"/>
+                                                </g>
+                                        <g>
+                                                    <polygon class="st0"
+                                                             points="225.3,246.8 260.1,283.9 210.9,295.2    "/>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                        </a>
+
+                    </div>
+
+                    <div id="{{theme.pk}}" class="modal resize__modal">
+                        <div class="modal__container">
+                            <form action="" class="find-form" method="post" enctype="multipart/form-data">
+
+                                {% csrf_token %}
+                                {{themes_form.management_form}}
+
+                                {%for form in themes_form%}
+                                {%if form.id.value == theme.pk%}
+
+
+                                <div class="theme-form__full-wrapper">
+                                    <div class="theme-form__wrapper theme-form__wrapper__modal ">
+{{form.id}}
+                                        {{form.name}}
+
+
+                                        <label class="input-file">
+                                            {{form.image}}
+                                            <span class="img-input input-file__max-width">Выберите файл</span>
+
+
+
+                                        </label>
+     <input class="img-input" type="submit" value="Сохранить">
+                                        <a href="{% url 'admin:theme_delete' theme.pk%}" class="img-input">Удалить</a>
+                                    </div>
+
+                                    <img class="lol-image theme-image theme-image__modal"
+                                         src="../../../../media/images/src/ec12a8cf5b74b9be1831df982c9e5478.jpg" alt="">
+                                </div>
+
+
+                                {%endif%}
+
+                                {%endfor%}
+                            </form>
+
+                        </div>
+                    </div>
+
+                    {%endfor%}
+
+                </div>
+
+
+                <form action="" class="test-serch__form" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="theme-form__full-wrapper">
+                        <div class="theme-form__wrapper">
+                            {{form.name}}
+
+
+                            <label class="input-file">
+
+                                {{form.image}}
+                                <span class="img-input img-input__right">Выберите файл</span>
+                                <button class="img-input" type="submit">Сохранить</button>
+
+
+                            </label>
+
+                        </div>
+
+                        <img class="lol-image theme-image"
+                             src="../../../../media/images/src/ec12a8cf5b74b9be1831df982c9e5478.jpg"
+                             alt="">
+                    </div>
+                </form>
+
+
+                <!--                <form action="" class="test-serch__form ">-->
+
+                <!--                    {{form.as_p}}-->
+                <!--                    <input type="text" class="test-search" placeholder="Введите название новой темы">-->
+                <!--                    <input type="submit" class="find form__find-button find-test__button" value="">-->
+                <!--                </form>-->
+
+
+
+
+
+                <h1 class="heading__theme-title">Тесты на модерации</h1>
+
+                <div class="tests__wrapepr">
+
+                    {%for test in tests%}
+                    <div class="test__item-wrap">
+                        <a href="{% url 'admin:moderate_test' test.pk%}" class="test-slider__item ">
+                            <div class="slider-item__img">
+                                <img class="slider__main-img"
+                                     src="/media/{{ test.image|default:'tests_images/ecdbbf274b437f948cc11d401fe010b1.jpg' }}"
+                                     alt="">
+
+                                <div class="creator-info">
+                                    <img src="/media/{{test.creator.avatar|default:'../../media/images/src/user-photo.svg'}}"
+                                         alt="" class="creator-avatar">
+                                    <p>{{test.creator}}</p>
+                                </div>
+                            </div>
+
+                            <div class="slider-text__container">
+                                <h3 class="slider-item__title">{{test.name}}
+                                </h3>
+                                <p class="slider-item__description">
+                                    {{test.description|truncatechars:300}}</p>
+
+
+                                <div class="bottom__slider-row--wrapper">
+                                    <div class="bottom__slider-row">
+                                        <span class="rate-icon">{{test.test_rait}}</span>
+                                        <span class="visit-icon">{{test.visited}}</span>
+                                        <span class="quiz-icon">{{test.questionsNum}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+
+                    </div>
+
+                    {%endfor%}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+{%endblock%}

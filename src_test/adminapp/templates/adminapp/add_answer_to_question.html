@@ -1,0 +1,59 @@
+{% extends 'tests/base.html'%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{%block content%}
+<p>{{test.name}}</p>
+
+<h2>{{question.name}}</h2>
+
+  <form id="form-container" method="POST">
+        {% csrf_token %}
+        {{formset.management_form}}
+        {% for form in formset %}
+        <div class="test-form">
+        {{form.as_p}}
+            <hr>
+        </div>
+        {% endfor %}
+      <button id="add-form" type="button">Добавить ответ</button>
+        <button type="submit">Сохранить</button>
+    </form>
+
+
+
+ <script>
+        let testForm = document.querySelectorAll(".test-form")
+        let container = document.querySelector("#form-container")
+        let addButton = document.querySelector("#add-form")
+        let totalForms = document.querySelector("#id_form-TOTAL_FORMS")
+
+        let formNum = testForm.length-1
+        addButton.addEventListener('click', addForm)
+
+        function addForm(e){
+            e.preventDefault()
+
+            let newForm = testForm[0].cloneNode(true)
+
+            let formRegex = RegExp(`form-(\\d){1}-`,'g')
+
+            formNum++
+
+            newForm.innerHTML = newForm.innerHTML.replace(formRegex, `form-${formNum}-`)
+
+            container.insertBefore(newForm, addButton)
+
+            totalForms.setAttribute('value', `${formNum+1}`)
+
+
+        }
+
+    </script>
+{%endblock%}
+</body>
+</html>

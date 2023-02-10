@@ -1,0 +1,100 @@
+
+{%extends 'base.html'%}
+
+{% block content %}
+
+
+
+<section class="user-page__top-row">
+            <div class="user__container">
+                <div class="user-page__top-row__wrapper">
+                    <div class="top-row__left-side">
+                        <div class="top-row__left-side--wrapper">
+                            <p>Личный кабинет</p>
+                        </div>
+                        <div class="top-row__left-side--wrapper">
+                            <a href="{% url 'auth:edit'%}">
+                                <img src="../../../media/images/settings.svg" alt="" class="account-actions ">
+                            </a>
+                        </div>
+                        <div class="top-row__left-side--wrapper">
+                            <a href="{% url 'auth:logout'%}">
+                                <img src="../../../media/images/logout.svg" alt="" class="account-actions">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="top-row__right-side">
+
+                        <a href="{%url 'auth:user_bio'%}" class="account__info ">Профиль</a>
+                          <a href="{% url 'office:office'%}" class="account__info ">Мои тесты</a>
+                        <a href="{% url 'test_passing:list_of_passed_tests'%}" class="account__info active">Статистика</a>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+
+
+
+
+
+
+
+
+
+        <section class="user-profile__section">
+            <div class="user__container">
+                <div class="user-profile">
+                    <div class="user__short-info__wrapper">
+                        <div class="user__short-info">
+                            <img src="/media/{{user.avatar |default:'../../media/images/src/user-photo.svg'}}" alt=""
+                                class="profile__avatar lol-image">
+                            <p class="username">ктоdddddddddddd</p>
+                            <p class="registration-date">На сайте с 21.01.2023</p>
+
+
+
+
+
+                        </div>
+
+                    </div>
+
+
+
+
+                    <ul class="vacansies__list">
+                        {%for vacancy in vacancies%}
+                        <li class="vacancies__item">
+                            <div class="vacancy__inner-wrapper">
+                            <div class="vacancy__top-row">
+                                <div class="vacancy__toprowleft">
+                                    <a href="{{vacancy.href}}" class="vacancy__name">{{vacancy.title}}</a>
+                                    <p class="vacancy__company">{{vacancy.company}} </p>
+                                </div>
+
+                                <img src="{{vacancy.img_href}}" alt=""
+                                    class="vacancy__image">
+
+                            </div>
+                            <p class="vacancy__pay">{{vacancy.pay}}</p>
+                            <p class="vacansy__description">{{vacancy.content|truncatewords:25}}</p>
+                            </div>
+                            <p class="vacacy__date">Объявление добавлено {{vacancy.timestamp}}</p>
+                        </li>
+                     {%endfor%}
+
+                    </ul>
+
+
+                </div>
+            </div>
+        </section>
+
+
+{%endblock%}
+
+
+

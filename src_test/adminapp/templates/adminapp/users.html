@@ -1,0 +1,111 @@
+{% extends 'adminapp/base2.html'%}
+
+{% block content %}
+
+
+<section class="user-page__top-row">
+    <div class="container">
+        <div class="user-page__top-row__wrapper">
+            <div class="top-row__left-side">
+                  <div class="top-row__left-side--wrapper">
+                    <p>Администрирование</p>
+                </div>
+
+                <div class="top-row__left-side--wrapper">
+                    <a href="{%url 'auth:user_bio'%}">
+                        <img src="../../../media/images/logout.svg" alt="" class="account-actions">
+                    </a>
+                </div>
+            </div>
+
+            <div class="top-row__right-side">
+ <a href="{% url 'admin:admin_panel'%}" class="account__info ">Редактирование</a>
+                <a href="{% url 'admin:users'%}" class="account__info active">Пользователи</a>
+
+                <a href="{% url 'admin:show_parsers_url'%}" class="account__info">Ссылки вакансий</a>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+<section class="themes__section ">
+    <div class="container">
+        <div class="admin-page">
+
+            <div class="admin-page__left">
+                <a href="{% url 'admin:users'%}" class="admin__left-item active">Пользователи</a>
+                <a href="{% url 'admin:admin_panel'%}" class="admin__left-item">Редактирование тестов и тем</a>
+                <a href="{% url 'admin:show_parsers_url'%}" class="admin__left-item">Ссылки для сбора вакансий</a>
+            </div>
+
+
+            <div class="admin-page__right">
+
+                <h1 class="heading__theme-title">Пользователи</h1>
+
+                <form action="{% url 'admin:users'%}" class="find-form" method="post">
+                    {% csrf_token %}
+{{find_form.as_p}}
+
+                    <input type="submit" value="" class="find form__find-button test-sort__find-button">
+                </form>
+                <div class="users__wrapper">
+
+                    {% for user in object_list%}
+
+                    <div class="user-item">
+                        <img class="user-item__avatar"
+                             src="/media/{{user.avatar|default:'../../media/images/ecdbbf274b437f948cc11d401fe010b1.jpg'}}"
+                             alt="">
+                        {%if user.first_name %}
+                        <p class="user-item__names">Имя: {{user.first_name}}</p>
+                        {%else%}
+                        <p class="user-item__names">Имя: не указано</p>
+                        {%endif%}
+
+
+                         {%if user.last_name %}
+
+                        <p class="user-item__names">Фамилия: {{user.last_name}}</p>
+                        {%else%}
+                        <p class="user-item__names">Фамилия: не указана</p>
+                        {%endif%}
+
+              <p class="user-item__names">Login: {{user.username}}</p>
+  {%if user.is_superuser and user.is_staff  %}
+                        <p class="user-item__names">Тип акаунта: Администратор</p>
+{%endif%}
+
+
+                        {%if user.is_staff and not user.is_superuser%}
+                          <p class="user-item__names">Тип акаунта:   Персонал</p>
+                      {%endif %}
+
+
+                        {%if not user.is_staff and not user.is_superuser%}
+
+                           <p class="user-item__names">Тип акаунта: Посетитель</p>
+                        {%endif%}
+
+
+                        <p class="user-item__last-login">Был в сети: {{user.last_login | date:"d.m.Y"}}</p>
+                        <div class="user-item__actions">
+                            <a href="{% url 'admin:user_update' user.pk%}" class="user-item__button">Редактировать</a>
+                            <a href="{% url 'admin:user_delete' user.pk%}" class="user-item__button">Удалить</a>
+                        </div>
+
+                    </div>
+                    {%endfor%}
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</section>
+{% endblock %}

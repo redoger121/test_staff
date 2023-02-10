@@ -1,0 +1,57 @@
+{%extends 'tests/base.html'%}
+
+
+{%block content%}
+
+
+<section class="test__section ">
+    <div class="user__container test__container">
+        <h1 class="test__title">{{test.name}}</h1>
+
+        <form method="post">
+            {% csrf_token %}
+            {% for question in questions%}
+
+            <div class="test__wrapper">
+
+
+                <p class="test__question">{{question.name}}</p>
+
+                {%for answer in answers%}
+                {%if answer.for_question_id == question.pk%}
+
+
+                <div class="answer__wrapper">
+                    <p class="answer__text">{{answer.name}}</p>
+                    {{ formset.management_form }}
+                    {% for form in formset %}
+
+                    {{ form.id }}
+
+                    {%if form.name.value == answer.name and form.for_question.value == question.pk%}
+
+                    {{form.name}}
+                    {{form.answer_is_true}}
+                    {{form.real_answer}}
+                    {{form.for_question}}
+
+                    {%endif%}
+                    {% endfor %}
+
+
+                </div>
+                {%endif%}
+                {%endfor%}
+
+            </div>
+            {%endfor%}
+            <button class="info__save-button test__button" type="submit">Отправить на проверку</button>
+        </form>
+
+    </div>
+</section>
+
+
+{%endblock%}
+
+

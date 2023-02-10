@@ -1,0 +1,31 @@
+{%extends 'tests/base.html'%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{%block content%}
+<h1>вот найденные тесты</h1>
+<h1>{{theme.name}}</h1>
+
+
+{%for test in tests%}
+
+<p>
+    <a href="{% url 'tests:test_questions' test.pk%}">
+        {{test.name}}
+    </a>
+</p>
+<p>{{test.date}}</p>
+<hr>
+{%endfor%}
+
+
+
+{%endblock%}
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+{% extends 'tests/base.html' %}
+
+{%block content%}
+
+
+
+<section class="user-page__top-row">
+            <div class="user__container">
+                <div class="user-page__top-row__wrapper">
+                    <div class="top-row__left-side">
+                        <div class="top-row__left-side--wrapper">
+                            <p>Личный кабинет</p>
+                        </div>
+                        <div class="top-row__left-side--wrapper">
+                            <a href="{% url 'auth:edit'%}">
+                                <img src="../../media/images/settings.svg" alt="" class="account-actions ">
+                            </a>
+                        </div>
+                        <div class="top-row__left-side--wrapper">
+                            <a href="{% url 'auth:logout'%}">
+                                <img src="../../media/images/logout.svg" alt="" class="account-actions">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="top-row__right-side">
+
+                        <a href="" class="account__info active">Профиль</a>
+                          <a href="{% url 'office:office'%}" class="account__info ">Мои тесты</a>
+                        <a href="{% url 'test_passing:list_of_passed_tests'%}" class="account__info">Статистика</a>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+
+
+        <section class="user-profile__section">
+            <div class="user__container">
+                <div class="user-profile">
+                    <div class="user__short-info__wrapper">
+                        <div class="user__short-info">
+                            <img src="/media/{{user.avatar |default:'../../media/images/src/user-photo.svg'}}" alt="" class="profile__avatar">
+                            <p class="username">{{user_main_info.username}}</p>
+                            <p class="registration-date">На сайте с {{user_main_info.date_joined | date:"d.m.Y"}} </p>
+                        </div>
+                          {%if user.is_superuser%}
+ <a href="{%url 'admin:admin_panel'%}" class="new-password">Панель администрирования</a>
+                        {%endif%}
+
+                    </div>
+
+
+
+
+                    <div class="user__full-info">
+                        <div class="full-info__row">
+                            <p class="row__name">Логин</p>
+                              <div class="row-info__wrapper">
+                            <p class="row__value">{{user_main_info.username}}</p>
+                              </div>
+                        </div>
+                        <div class="full-info__row">
+                            <p class="row__name">Имя</p>
+                              <div class="row-info__wrapper">
+                            <p class="row__value">{{user_main_info.first_name}}</p>
+                              </div>
+                        </div>
+                        <div class="full-info__row">
+                            <p class="row__name">Фамилия</p>
+                              <div class="row-info__wrapper">
+                            <p class="row__value">{{user_main_info.last_name}}</p>
+                              </div>
+                        </div>
+                        <div class="full-info__row">
+                            <p class="row__name">Адрес электронной почты</p>
+                              <div class="row-info__wrapper">
+                            <p class="row__value">{{user_main_info.email}} </p>
+                              </div>
+                        </div>
+                        <div class="full-info__row">
+                            <p class="row__name">Возраст</p>
+                              <div class="row-info__wrapper">
+                            <p class="row__value">{{user_main_info.age}}</p>
+                              </div>
+                        </div>
+                        <div class="full-info__row">
+                            <p class="row__name">О себе</p>
+                              <div class="row-info__wrapper">
+                            <p class="row__value">{{user_other_info.aboutMe}}</p>
+                              </div>
+                        </div>
+                        <div class="full-info__row">
+                            <p class="row__name">Пол</p>
+                              <div class="row-info__wrapper">
+                            <p class="row__value">{{user_other_info.gender}}</p>
+                              </div>
+                        </div>
+
+
+
+
+                    </div>
+
+
+                </div>
+            </div>
+        </section>
+
+
+
+
+
+
+
+
+{%endblock%}

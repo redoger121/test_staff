@@ -1,0 +1,22 @@
+{% extends 'staff/base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block content %}
+   <div class="category_delete">
+       <div class="h1">Уверены, что хотите удалить?</div>
+       <form action="{% url 'staff:delete_test' test.pk %}" method="post">
+           {% csrf_token %}
+           <input class="btn btn-danger" type="submit" value="удалить">
+       </form>
+       <button class="btn btn-success">
+           <a href="{% url 'staff:themes' %}">отмена</a>
+       </button>
+   </div>
+{% endblock %}
+</body>
+</html>

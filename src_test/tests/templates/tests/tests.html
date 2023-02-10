@@ -1,0 +1,186 @@
+{% extends 'tests/base.html'%}
+
+
+{% block content%}
+
+<section class="themes__top-line">
+    <div class="container">
+
+        <h1 class="heading__theme-title">Тесты</h1>
+        <span class="toggle_themes_list">Показать все темы</span>
+
+        <div class="themes__wrapper">
+
+            {% for theme in themes %}
+
+            {%if theme.pk == tests_theme.pk%}
+
+
+            <a class="theme-item-link active" href="{%url 'tests:tests' %}">
+
+                <div class="theme-item-info"
+                     style="background-image: url('/media/{{theme.image|default:'../../media/images/youtybe.png'}}');">
+                    {{theme.name}}
+                </div>
+
+            </a>
+
+            {%else%}
+            <a class="theme-item-link" href="{%url 'tests:tests_by_theme' theme.pk %}">
+
+                <div class="theme-item-info"
+                     style="background-image: url('/media/{{theme.image|default:'../../media/images/youtybe.png'}}');">
+                    {{theme.name}}
+                </div>
+
+            </a>
+
+
+            {%endif%}
+            {%endfor%}
+
+
+        </div>
+
+
+    </div>
+</section>
+
+<section class="tests-sort">
+    <div class="container">
+
+        <div class="test-sort__wrapper">
+            <div class="test-sort__left ">
+                <div class="test-type__wrapper   {% if request.path == '/actual/tests/'%} active {%endif%}">
+
+                     {% if request.path == '/actual/tests/'%}
+                    <a href="{% url 'tests:tests'%}" class="test__type ">Интересные</a>
+                    {%else%}
+                     <a href="{% url 'tests:actual_tests'%}" class="test__type ">Интересные</a>
+                    {%endif%}
+
+                </div>
+
+
+                <div class="test-type__wrapper  {% if request.path == '/new/tests/'%} active {%endif%} ">
+
+                        {% if request.path == '/new/tests/'%}
+                    <a href="{% url 'tests:tests' %}" class="test__type">Новые</a>
+                       {%else%}
+                       <a href="{% url 'tests:new_tests' %}" class="test__type">Новые</a>
+                    {%endif%}
+
+                </div>
+
+
+
+                <div class="test-type__wrapper {% if request.path == '/misjudged/tests/'%} active {%endif%} ">
+
+                     {% if request.path == '/misjudged/tests/'%}
+                    <a href="{%url 'tests:tests'%}" class="test__type">Недооцененные</a>
+                    {%else%}
+                    <a href="{%url 'tests:misjudged_tests'%}" class="test__type">Недооцененные</a>
+                    {%endif%}
+                </div>
+            </div>
+
+
+            <div class="test-sort__right">
+
+
+                <form action="" class="find-form" method="post">
+
+                    {% csrf_token %}
+                    {{form.as_p}}
+
+                    <input type="submit" value="" class="find form__find-button test-sort__find-button"></input>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="tests__section">
+    <div class="container">
+
+        <div class="tests__wrapepr">
+            {% for test in tests%}
+            <div class="test__item-wrap">
+                <a href="{% url 'tests:test_questions' test.pk %}" class="test-slider__item ">
+                    <div class="slider-item__img">
+                        <img class="slider__main-img"
+                             src="/media/{{ test.image|default:'tests_images/ecdbbf274b437f948cc11d401fe010b1.jpg' }}"
+                             alt="">
+
+                        <div class="creator-info">
+                            <img src=" /media/{{test.creator.avatar|default:'../../media/images/src/user-photo.svg'}}"
+                                 alt="" class="creator-avatar">
+                            <p>{{test.creator}}</p>
+                        </div>
+                    </div>
+
+                    <div class="slider-text__container">
+                        <h3 class="slider-item__title">{{test.name}}</h3>
+                        <p class="slider-item__description">{{test.description|truncatechars:300}}</p>
+
+                        <div class="bottom__slider-row">
+                            <span class="rate-icon">{{test.test_rait}}</span>
+                            <span class="visit-icon">{{test.visited}}</span>
+                            <span class="quiz-icon">{{test.questionsNum}}</span>
+
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+
+            {%endfor%}
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+
+
+
+
+
+
+
+<div class="pagination">
+    <ul class="pagination-list">
+
+           {% if tests.has_previous %}
+
+        <li class="pagination-list__item "><a href="?page=1">&laquo; первая </a></li>
+
+        {%endif%}
+        {% for p in tests.paginator.page_range|default_if_none:tests.paginator.get_elided_page_range %}
+
+        {% if tests.number == p  %}
+
+        <li class="pagination-list__item active "><a href="?page={{ p }}">{{ p }}</a></li>
+
+
+        {%elif  p >= tests.number|add:-3 and p <= tests.number|add:3%}
+
+ <li class="pagination-list__item  "><a href="?page={{ p }}">{{ p }}</a></li>
+
+        {%endif%}
+
+        {% endfor %}
+
+           {% if tests.has_next %}
+  <li class="pagination-list__item "><a href="?page={{ tests.paginator.num_pages }}">последняя &raquo;</a></li>
+{%endif%}
+
+    </ul>
+</div>
+
+{%endblock %}
+

@@ -1,0 +1,37 @@
+{% extends 'adminapp/base.html'%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{%block content%}
+
+
+<button class="new_user">
+      <a href="{% url 'admin:theme_create' %}">
+      новая тема
+      </a>
+    </button>
+<hr>
+{%for theme in themes_list%}
+<p><a href="{% url 'admin:tests_by_theme' theme.pk%}">{{theme.name}}</a></p>
+  <button>
+            <a href="{% url 'admin:theme_update' theme.pk %}">
+              редактировать
+            </a>
+          </button>
+          <button>
+            <a href="{% url 'admin:theme_delete' theme.pk%}">
+              удалить
+            </a>
+          </button>
+<hr>
+{%endfor%}
+{%endblock%}
+
+
+
+</body>
+</html>

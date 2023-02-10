@@ -1,0 +1,88 @@
+{% extends 'staff/base.html'%}
+
+{%block content%}
+
+
+
+
+  <section class="test__section ">
+            <div class="user__container test__container">
+
+
+
+                    <h1 class="test__title">{{test.name}}</h1>
+
+                    <div class="test__wrapper">
+
+
+                        <p class="test__question">Описание</p>
+
+                        <div class="answer__wrapper">
+                            {% if test.description %}
+                            <p class="answer__text">{{test.description}}</p>
+                                {%else%}
+                             <p class="answer__text">Описание отсутствует
+                            {%endif%}
+                        </div>
+
+
+                    </div>
+
+
+  <form action="" method="post" id="form-container">
+      {% csrf_token %}
+
+  {{test_formset.management_form}}
+                     {% for form in test_formset %}
+                    {% for form in test_formset %}
+                    <div class="test__wrapper form__wrapper">
+
+
+                        <div class="test__question-input__wrapper">
+
+                            {{form.name}}
+                            {{form.for_test}}
+                        </div>
+
+                    </div>
+                      {% endfor %}
+    {% endfor %}
+
+
+
+
+
+                    <button id="add-form" class="info__save-button test__button" type="submit">Добавить вопрос</button>
+                       <button class="info__save-button test__button" type="submit">Сохранить</button>
+                </form>
+
+            </div>
+        </section>
+
+
+
+ <script>
+        let testForm = document.querySelectorAll(".form__wrapper")
+        let container = document.querySelector("#form-container")
+        let addButton = document.querySelector("#add-form")
+        let totalForms = document.querySelector("#id_form-TOTAL_FORMS")
+
+        let formNum = testForm.length-1
+        addButton.addEventListener('click', addForm)
+
+        function addForm(e){
+            e.preventDefault()
+
+            let newForm = testForm[0].cloneNode(true)
+            let formRegex = RegExp(`form-(\\d){1}-`,'g')
+
+            formNum++
+            newForm.innerHTML = newForm.innerHTML.replace(formRegex, `form-${formNum}-`)
+            container.insertBefore(newForm, addButton)
+
+            totalForms.setAttribute('value', `${formNum+1}`)
+        }
+    </script>
+{%endblock%}
+
+

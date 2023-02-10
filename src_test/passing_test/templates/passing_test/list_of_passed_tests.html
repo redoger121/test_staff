@@ -1,0 +1,213 @@
+{% extends 'passing_test/base.html' %}
+
+{% block content%}
+
+<section class="user-page__top-row">
+            <div class="user__container">
+                <div class="user-page__top-row__wrapper">
+                    <div class="top-row__left-side">
+                        <div class="top-row__left-side--wrapper">
+                            <p>Личный кабинет</p>
+                        </div>
+                        <div class="top-row__left-side--wrapper">
+                            <a href="{% url 'auth:edit'%}">
+                                <img src="../../../../media/images/settings.svg" alt="" class="account-actions ">
+                            </a>
+                        </div>
+                        <div class="top-row__left-side--wrapper">
+                            <a href="{% url 'auth:logout'%}">
+                                <img src="../../../../media/images/logout.svg" alt="" class="account-actions">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="top-row__right-side">
+
+                        <a href="{%url 'auth:user_bio'%}" class="account__info ">Профиль</a>
+                          <a href="{% url 'office:office'%}" class="account__info ">Мои тесты</a>
+                        <a href="{% url 'test_passing:list_of_passed_tests'%}" class="account__info  active">Статистика</a>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+
+
+
+
+<section class="user-profile__section">
+    <div class="user__container">
+        <div class="user-profile">
+
+            <div class="user__short-info__wrapper user-page__custom-wrapper">
+                <div class="user__short-info">
+                    <img src="/media/{{user.avatar |default:'../../media/images/src/user-photo.svg'}}" alt=""
+                         class="profile__avatar">
+                    <p class="username">{{user.username}}</p>
+                    <p class="registration-date">На сайте с {{user.date_joined|date:"d.m.Y"}}</p>
+                </div>
+                     <a href="{% url 'office:view_vacancy'%}" class="new-password">Список вакансий</a>
+            </div>
+
+
+            <div class="user__full-info">
+                {% for test in passed_tests %}
+                <div class="user__test-item">
+                    <div class="test__top-row">
+                        <div class="tests__top-row__left-side">
+                            <img src="/media/{{test.main_test.image}}" alt=""
+                                 class="user__test-image">
+                            <div class="left-side__button-wrapper">
+
+                                <a href="{%url 'test_passing:passed_test_detail' test.pk %}"
+                                   class="left-side__button passed-test__button"
+                                   data-title="Подробные результаты">
+
+
+                                    <svg width="50px" height="50px" viewBox="0 0 800 800"
+                                         enable-background="new 0 0 800 800" id="GUIDE" version="1.1">
+
+
+                                        <g>
+
+                                            <path d="M676.637,183.386c0.002-0.002,0.004-0.004,0.005-0.005L522.549,29.287c-3.619-3.62-8.62-5.86-14.145-5.86H137.5   c-11.046,0-20,8.954-20,20v713.146c0,11.046,8.954,20,20,20h525c11.046,0,20-8.954,20-20V197.522   C682.5,192.407,680.426,187.203,676.637,183.386z M642.5,736.573h-485V63.427h342.62l114.096,114.095l-85.812,0v-41.788   c0-11.046-8.954-20-20-20s-20,8.954-20,20v61.788c0,11.046,8.954,20,20,20c0,0,92.404,0,134.096,0V736.573z"/>
+
+                                            <path d="M295.217,224.417l-39.854,39.855l-5.697-5.697c-7.811-7.811-20.473-7.811-28.283,0c-7.811,7.81-7.811,20.473,0,28.284   l19.84,19.84c3.75,3.751,8.838,5.858,14.142,5.858c5.305,0,10.392-2.107,14.143-5.858l53.996-53.999   c7.81-7.811,7.81-20.474-0.001-28.284C315.69,216.606,303.027,216.606,295.217,224.417z"/>
+
+                                            <path d="M557.831,312.557h6.646c11.046,0,20-8.954,20-20s-8.954-20-20-20h-6.646c-11.046,0-20,8.954-20,20   S546.785,312.557,557.831,312.557z"/>
+
+                                            <path d="M367.389,272.557c-11.046,0-20,8.954-20,20s8.954,20,20,20h129.609c11.046,0,20-8.954,20-20s-8.954-20-20-20H367.389z"/>
+
+                                            <path d="M557.831,435.552h6.646c11.046,0,20-8.954,20-20s-8.954-20-20-20h-6.646c-11.046,0-20,8.954-20,20   S546.785,435.552,557.831,435.552z"/>
+
+                                            <path d="M496.998,395.552H367.389c-11.046,0-20,8.954-20,20s8.954,20,20,20h129.609c11.046,0,20-8.954,20-20   S508.044,395.552,496.998,395.552z"/>
+
+                                            <path d="M557.831,558.547h6.646c11.046,0,20-8.954,20-20s-8.954-20-20-20h-6.646c-11.046,0-20,8.954-20,20   S546.785,558.547,557.831,558.547z"/>
+
+                                            <path d="M496.998,518.547H367.389c-11.046,0-20,8.954-20,20s8.954,20,20,20h129.609c11.046,0,20-8.954,20-20   S508.044,518.547,496.998,518.547z"/>
+
+                                            <path d="M557.831,681.542h6.646c11.046,0,20-8.954,20-20s-8.954-20-20-20h-6.646c-11.046,0-20,8.954-20,20   S546.785,681.542,557.831,681.542z"/>
+
+                                            <path d="M496.998,641.542H367.389c-11.046,0-20,8.954-20,20s8.954,20,20,20h129.609c11.046,0,20-8.954,20-20   S508.044,641.542,496.998,641.542z"/>
+
+                                            <path d="M255.363,435.552c5.304,0,10.392-2.107,14.142-5.858l53.996-53.996c7.811-7.811,7.811-20.475,0-28.285   s-20.473-7.811-28.283,0l-39.854,39.855l-5.697-5.698c-7.81-7.81-20.474-7.812-28.284-0.001s-7.811,20.474-0.001,28.284   l19.84,19.841C244.972,433.444,250.059,435.552,255.363,435.552z"/>
+
+                                            <path d="M234.239,511.547l-12.856,12.857c-7.81,7.811-7.81,20.474,0.001,28.284c3.905,3.905,9.023,5.857,14.142,5.857   s10.237-1.952,14.143-5.858l12.855-12.855l12.856,12.855c3.904,3.906,9.023,5.858,14.142,5.858s10.237-1.952,14.142-5.858   c7.811-7.811,7.811-20.473,0-28.283l-12.855-12.857l12.856-12.857c7.81-7.811,7.81-20.474-0.001-28.284   c-7.811-7.81-20.474-7.81-28.284,0.001l-12.856,12.856l-12.857-12.856c-7.811-7.811-20.473-7.811-28.283,0s-7.811,20.474,0,28.283   L234.239,511.547z"/>
+
+                                            <path d="M295.217,593.4l-39.854,39.855l-5.697-5.697c-7.811-7.811-20.473-7.811-28.283,0c-7.811,7.81-7.811,20.473,0,28.283   l19.84,19.84c3.75,3.752,8.838,5.858,14.142,5.858c5.305,0,10.392-2.107,14.143-5.858l53.996-53.998   c7.81-7.811,7.81-20.474-0.001-28.284C315.69,585.59,303.027,585.59,295.217,593.4z"/>
+
+                                        </g>
+
+                                    </svg>
+
+                                </a>
+                            </div>
+                            <div class="score_wrapper">
+                                <span>Результат</span>
+                                <span>{{test.score|floatformat:"0"}}/100</span>
+                            </div>
+                        </div>
+
+
+                        <div class="tests__top-row__right-side">
+
+                            <p class="user__test-title">
+                                {{test.name}}
+                            </p>
+                            <p class="user__test-description">
+                                {{test.main_test.description}}
+                            </p>
+
+                        </div>
+
+
+                    </div>
+                    {%if not test.rait%}
+                    <div class="star__wrapper">
+                        <p class="star_text">Оцените тест</p>
+
+                        <a class=" rait_btn " href="{%url  'test_passing:raiting' test.pk 1 %}">
+
+                            <svg class="rait-1 star-btn" width="80px" height="80px" viewBox="0 0 24 24"
+                                 xmlns="http://www.w3.org/2000/svg" fill="none" transition="all 3s">
+                                <path stroke="#000000" stroke-linejoin="round" stroke-width="2"
+                                      d="m12 2 2.939 5.955 6.572.955-4.756 4.635 1.123 6.545L12 17l-5.878 3.09 1.123-6.545L2.489 8.91l6.572-.955L12 2Z"/>
+                            </svg>
+
+
+                        </a>
+                        <a class=" rait_btn " href="{%url  'test_passing:raiting' test.pk 2 %}">
+
+
+                            <svg class="rait-2 star-btn" width="80px" height="80px" viewBox="0 0 24 24"
+                                 xmlns="http://www.w3.org/2000/svg" fill="none">
+                                <path stroke="#000000" stroke-linejoin="round" stroke-width="2"
+                                      d="m12 2 2.939 5.955 6.572.955-4.756 4.635 1.123 6.545L12 17l-5.878 3.09 1.123-6.545L2.489 8.91l6.572-.955L12 2Z"/>
+                            </svg>
+
+
+                        </a>
+                        <a class=" rait_btn " href="{%url  'test_passing:raiting' test.pk 3 %}">
+
+
+                            <svg class="rait-3 star-btn" width="80px" height="80px" viewBox="0 0 24 24"
+                                 xmlns="http://www.w3.org/2000/svg" fill="none">
+                                <path stroke="#000000" stroke-linejoin="round" stroke-width="2"
+                                      d="m12 2 2.939 5.955 6.572.955-4.756 4.635 1.123 6.545L12 17l-5.878 3.09 1.123-6.545L2.489 8.91l6.572-.955L12 2Z"/>
+                            </svg>
+
+                        </a>
+                        <a class=" rait_btn " href="{%url  'test_passing:raiting' test.pk 4 %}">
+
+
+                            <svg class="rait-4 star-btn" width="80px" height="80px" viewBox="0 0 24 24"
+                                 xmlns="http://www.w3.org/2000/svg" fill="none">
+                                <path stroke="#000000" stroke-linejoin="round" stroke-width="2"
+                                      d="m12 2 2.939 5.955 6.572.955-4.756 4.635 1.123 6.545L12 17l-5.878 3.09 1.123-6.545L2.489 8.91l6.572-.955L12 2Z"/>
+                            </svg>
+
+
+                        </a>
+                        <a class=" rait_btn " href="{%url  'test_passing:raiting' test.pk 5 %}">
+
+                            <svg class="rait-5 star-btn" width="80px" height="80px" viewBox="0 0 24 24"
+                                 xmlns="http://www.w3.org/2000/svg" fill="none">
+                                <path stroke="#000000" stroke-linejoin="round" stroke-width="2"
+                                      d="m12 2 2.939 5.955 6.572.955-4.756 4.635 1.123 6.545L12 17l-5.878 3.09 1.123-6.545L2.489 8.91l6.572-.955L12 2Z"/>
+                            </svg>
+
+
+                        </a>
+
+                    </div>
+
+
+                    {%else%}
+
+                    {%for object in rait_list%}
+                    {%if object.rait_test == test.pk%}
+                    <div class="star__wrapper">
+                        <p class="star_text">Вы оценили тест на {{object.rait}}</p>
+                    </div>
+                    {% endif%}
+                    {%endfor%}
+
+                    {%endif%}
+
+                    <p class="test__theme">Тема теста: {{test.theme_id}}</p>
+
+
+                </div>
+
+
+                {%endfor%}
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{%endblock%}

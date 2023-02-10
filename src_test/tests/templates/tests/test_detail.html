@@ -1,0 +1,39 @@
+{% extends 'tests/base.html'%}
+
+
+{% block content%}
+        <section class="test__section ">
+            <div class="user__container test__container">
+                <h1 class="test__title">{{test.name}}</h1>
+{%for question in questions%}
+ <h2 class="test__title">Вопрос №{{ forloop.counter}} </h2>
+
+
+                <div class="test__wrapper">
+
+
+                    <p class="test__question">{{question.name}}</p>
+
+                      {%for answer in answers%}
+                    {%if answer.for_question_id == question.pk%}
+                    <div class="answer__wrapper">
+                        <p class="answer__text">{{answer.name}}</p>
+
+                    </div>
+{%endif%}
+
+{%endfor%}
+
+
+
+                </div>
+
+             {%endfor%}
+
+                <a href="{% url 'office:add' test.pk %}" class="info__save-button test__button" type="submit">Добавить тест в личный кабинет</a>
+
+
+            </div>
+        </section>
+
+{% endblock %}

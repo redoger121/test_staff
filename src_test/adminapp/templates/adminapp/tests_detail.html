@@ -1,0 +1,44 @@
+{%extends 'tests/base.html'%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+{%block content%}
+
+<h2>{{test.name}}</h2>
+<a href="{%url 'admin:delete_test' test.pk%}" class="btn btn-danger" >Удалить тест<a/>
+<a href="{%url 'admin:add_questions_to_test' test.pk%}" class="btn btn-success" >Добавить вопросы к тесту<a/>
+{%for question in questions%}
+
+<div class="card">
+  <div class="card-header">
+    {{question.name}} <a href="{%url 'admin:delete_question' question.pk %}" class="btn btn-primary">
+        Удалить вопрос</a>
+  </div>
+    <h5 class="card-title">Ответы:</h5>
+  <div class="card-body">
+      {%for answer in answers%}
+{%if answer.for_question_id == question.pk%}
+      <p class="card-text">{{answer.name}}</p>
+     <a href="{%url 'admin:delete_answer' answer.pk %}" class="btn btn-primary">
+        Удалить ответ на вопрос</a>
+      <hr>
+{%endif%}
+
+{%endfor%}
+<a href="{%url 'admin:add_answer_to_question' question.pk %}" class="btn btn-primary">
+        Редактировать ответы на вопрос</a>
+  </div>
+</div>
+
+{%endfor%}
+
+{%endblock%}
+
+
+</body>
+</html>

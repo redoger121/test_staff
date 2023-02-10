@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800;900&family=Montserrat:wght@400;500;700;900&family=Yanone+Kaffeesatz:wght@400;700&display=swap"
+            rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" href="../../../../media/css/iziModal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"/>
+      <link rel="stylesheet" href="../../../../media/css/jquery.formstyler.css">
+    <link rel="stylesheet" href="../../../../media/css/jquery.formstyler.theme.css">
+    <link rel="stylesheet" href="../../../../media/css/style.css">
+
+</head>
+
+
+<body>
+<div class="wrapper">
+    <header class="header">
+        <div class="container header__conttainer">
+
+            <div class="header__logo">
+                <img src="../../../../media/images/test-logo.svg" alt="">
+
+            </div>
+
+            <ul class="header__href__list">
+                <li class="header__href__list-item  {% if request.path == '/'%} active {%endif%}">
+
+                    <a href="{% url 'tests:main'%}">
+                        <img class="logo" src="../../../../media/images/menu-selections.svg" alt="">
+                        Главная
+                    </a>
+                </li>
+                <li class="header__href__list-item {% if request.path == '/tests/'  or  request.path == '/auth/user_bio/' %} active {% endif %}">
+                    <a href="{% url 'tests:tests'%}" class="">
+                        <img class="logo" src="../../../../media/images/menu-tests.svg" alt="">
+                        Тесты
+                    </a>
+                </li>
+                <li class="header__href__list-item">
+
+                    <a href="#">
+                        <img class="logo" src="../../../../media/images/menu-materials.svg" alt="">
+                        Бибилиотека</a>
+                </li>
+
+
+                {% if user.is_superuser %}
+                <li class="header__href__list-item">
+
+
+                    <a href="{% url 'staff:tests_create'%}">
+                        <img class="logo" src="../../../../media/images/menu-create.svg" alt="">
+                        Создать</a>
+                </li>
+ <li class="header__href__list-item">
+
+
+                    <a href="{% url 'staff:tests'%}">
+                        <img class="logo" src="../../../../media/images/menu-create.svg" alt="">
+                        Контроль тестов</a>
+                </li>
+                {%endif%}
+            </ul>
+
+
+            <div class="header__function-block">
+                {% if user.is_authenticated  %}
+
+                <a href="{% url 'auth:user_bio'%}" class=" {% if request.path == '/auth/edit/'  or  request.path == '/auth/user_bio/' %} active {% endif %}   user__account">
+
+                    <img src="/media/{{user.avatar |default:'../../../../media/images/src/user-photo.svg'}}" alt="">
+                 {{user.username}}
+                </a>
+                <a href="#ex1" rel="modal:open" class="find"></a>
+
+                {%else%}
+                <a href="{% url 'auth:login' %}" class="login">Войти</a>
+                <a href="#ex1" rel="modal:open" class="find"></a>
+                {%endif%}
+            </div>
+
+            <div id="ex1" class="modal">
+                <div class="modal__container">
+                    <form action="" class="find-form">
+                        <input type="text" class="find-input" placeholder="Введите название теста">
+                        <a href="#" class="find form__find-button"></a>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+
+    </header>
+
+
+    {% block content%}
+
+    {%endblock%}
+
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__left-content">
+                    <h4 class="footer__logo">testvacancy</h4>
+                    <p class="footer__description">У нас размещены разнообразные тесты,
+                        с помощью которых вы можете оценить уровень своих знаний в той или иной области,
+                        а также подобрать вакансию соответсвующую вашему уровню знаний</p>
+
+                    <div class="contact_us">
+                        <p class="contact__text">По всем вопросам:</p>
+                        <a class="contact__mail" href="mailto:vanya.kovrigin@gmail.com">Admin@TestVacancu.ru</a>
+                    </div>
+
+                </div>
+                <div class="footer__right-content">
+                    <ul class="footer__list">
+                        <li class="footer__list-item bottom__test-icon">
+                            <a href="">Тесты</a>
+                        </li>
+                        <li class="footer__list-item">
+                            <a href="">Новые</a>
+                        </li>
+                        <li class="footer__list-item">
+                            <a href="">Лучшие</a>
+                        </li>
+                    </ul>
+                    <ul class="footer__list">
+                        <li class="footer__list-item bottom__library-icon">
+                            <a href="">Бибилиотека</a>
+                        </li>
+                        <li class="footer__list-item">
+                            <a href="">Новости</a>
+                        </li>
+                        <li class="footer__list-item">
+                            <a href="">Правила сайта</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</div>
+
+
+<script src="../../../../media/js/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<script src="../../../../media/js/tilt.jquery.min.js"></script>
+<script src="../../../../media/js/iziModal.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+ <script src="../../../../media/js/jquery.formstyler.min.js"></script>
+<script src="../../../../media/js/main.js"></script>
+</body>
+
+</html>

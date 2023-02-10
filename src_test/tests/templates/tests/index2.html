@@ -1,0 +1,173 @@
+{% extends 'tests/base.html'%}
+
+    {%block content%}
+    <section class="welcome_row">
+        <div class="container">
+            <div class="welcom_row__inner">
+
+
+
+                <div class="info_block">
+
+                    <img class="info_block__logo" src="media/images/test-logo.svg" alt="">
+
+
+                    <div class="user_block">
+                        <img src="media/images/star.svg" alt="" class="user_block_logo">
+                        <p class="user_amount">{{tests}}</p>
+                        <p class="user_description">Тестов</p>
+                    </div>
+                    <div class="user_block">
+                        <img src="media/images/post.svg" alt="" class="user_block_logo">
+                        <p class="user_amount">{{ vacancies}}</p>
+                        <p class="user_description">Вакансий</p>
+                    </div>
+                    <div class="user_block">
+                        <img src="media/images/people.svg" alt="" class="user_block_logo">
+                        <p class="user_amount">{{staff_users}}</p>
+                        <p class="user_description">Работодателей</p>
+                    </div>
+                    <div class="user_block">
+                        <img src="media/images/peoplenew.svg" alt="" class="user_block_logo">
+                        <p class="user_amount">{{simple_users}}</p>
+                        <p class="user_description">Пользователей</p>
+                    </div>
+                </div>
+
+
+
+                <div class="news_block">
+                    <div class="news_block__inner">
+                        <div class="top_row">
+                            <div class="left-icon">
+                                новости сайта
+                            </div>
+
+                            <div class="right-icon">
+                                <div class="news_comments">
+                                    35
+                                </div>
+                                <div class="news_date">
+                                    05.01.2023
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="bottom_row">
+                            <p> Последние нововведения добавленные на сайт </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </section>
+
+    <section class="actual_tests">
+        <div class="container">
+
+            <div class="block_heading">
+                <div class="block_heading__text">
+                    <h2> <a href="#" class="heading__title">Актуальные тесты</a></h2>
+                    <p class="heading__description">Самые высокооцененные тесты от нащих автров за неделю</p>
+                </div>
+                <a href="{% url 'tests:tests'%}" class="heading__button">Все тесты</a>
+            </div>
+
+            <div class="test-slider">
+
+{%for test in actual_tests%}
+                <div class="test-slider__item">
+                    <div class="slider__wrapper">
+                    <a href="{%url 'tests:test_questions' test.pk%}">
+                    <div class="slider-item__img">
+                        <img class="slider__main-img" src="media/images/src/ec12a8cf5b74b9be1831df982c9e5478.jpg" alt="">
+
+                        <div class="creator-info">
+                            <img src="media/images/src/user-photo.svg" alt="" class="creator-avatar">
+                            <p>{{test.creator}}</p>
+                        </div>
+                    </div>
+
+                    <div class="slider-text__container">
+                        <h3 class="slider-item__title">{{test.name}}</h3>
+                        <p class="slider-item__description">{{test.description}}</p>
+
+                        <div class="bottom__slider-row">
+                            <span class="rate-icon">{{test.test_rait}}</span>
+                            <span class="visit-icon">{{test.visited}}</span>
+                            <span class="quiz-icon">{{test.questionsNum}}</span>
+
+                        </div>
+                    </div>
+                    </a>
+</div>
+                </div>
+              {%endfor%}
+
+
+            </div>
+        </div>
+    </section>
+
+    <section class="new_tests">
+        <div class="container">
+            <div class="block_heading">
+                <div class="block_heading__text">
+                    <h2> <a href="#" class="heading__title">Новые тесты</a></h2>
+                    <p class="heading__description">Самые свежие тесты от нащих автров</p>
+                </div>
+                <a href="{% url 'tests:tests'%}" class="heading__button">Все тесты</a>
+            </div>
+
+
+
+
+
+
+
+            <div class="test-slider">
+
+              {%for test in new_tests%}
+                <div class="test-slider__item">
+                    <div class="slider__wrapper">
+                    <a href="{%url 'tests:test_questions' test.pk%}">
+                    <div class="slider-item__img">
+                        <img class="slider__main-img" src="media/images/src/ec12a8cf5b74b9be1831df982c9e5478.jpg" alt="">
+
+                        <div class="creator-info">
+                            <img src="media/images/src/user-photo.svg" alt="" class="creator-avatar">
+                            <p>{{test.creator}}</p>
+                        </div>
+                    </div>
+
+                    <div class="slider-text__container">
+                        <h3 class="slider-item__title">{{test.name}}</h3>
+                        <p class="slider-item__description">{{test.description}}</p>
+
+                        <div class="bottom__slider-row">
+                            <span class="rate-icon">{{test.test_rait}}</span>
+                            <span class="visit-icon">{{test.visited}}</span>
+                            <span class="quiz-icon">{{test.questionsNum}}</span>
+
+                        </div>
+                    </div>
+                    </a>
+</div>
+                </div>
+              {%endfor%}
+
+
+            </div>
+        </div>
+    </section>
+
+
+{%endblock%}
+
+
+

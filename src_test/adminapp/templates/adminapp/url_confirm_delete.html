@@ -1,0 +1,22 @@
+{% extends 'adminapp/base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block content %}
+   <div class="category_delete">
+       <div class="h1">Уверены, что хотите удалить этb ссылки?</div>
+       <form action="{% url 'admin:delete_url' url.pk %}" method="post">
+           {% csrf_token %}
+           <input class="btn btn-danger" type="submit" value="удалить">
+       </form>
+       <button class="btn btn-success">
+           <a href="{% url 'admin:show_parsers_url' %}">отмена</a>
+       </button>
+   </div>
+{% endblock %}
+</body>
+</html>

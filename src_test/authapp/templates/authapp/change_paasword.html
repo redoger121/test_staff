@@ -1,0 +1,84 @@
+{% extends 'authapp/base2.html' %}
+
+
+{% block content %}
+
+<!--   <div id='PasswordChnageForm'>-->
+<!--        <form method="post" action="{% url 'auth:change_password' %}">-->
+<!--        {% csrf_token %}-->
+<!--            {% for field in form %}-->
+<!--                    {{ field }}-->
+<!--                    {% if field.help_text %}-->
+<!--                        <small style="display: none">{{ field.help_text }}</small>-->
+<!--                    {% endif %}-->
+<!--                    {% for error in field.errors %}-->
+<!--                        <p style="color: red">{{ error }}</p>-->
+<!--                    {% endfor %}-->
+
+<!--            {% endfor %}-->
+<!--                <input type="submit" name="save" value="Save" >-->
+<!--         </form>-->
+<!--    </div>-->
+
+
+        <section class="login-section">
+
+            <div class="login__wrapepr">
+                <div class="login__left-side">
+                    <div class="authpage__welcome-inner">
+                        <h1>С возвращением!</h1>
+                        <p>Для авторизации воспользуйтесь формой входа, а если у вас еще нет аккаунта воспользуйтесь
+                            ссылкой "Регистрация" над формой.</p>
+                    </div>
+                </div>
+
+                <div class="login__right-side">
+                    <div class="innerwrap">
+                        <div class="login-butons__wrapper">
+                            <a href="" class="login__buttton active">Изменение пароля</a>
+
+                        </div>
+
+                        <form   id='PasswordChnageForm' action="{% url 'auth:change_password' %}" class="login__form" method="post">
+    {% csrf_token %}
+
+                                   {% for field in form %}
+                              <div class="password__wrapper">
+                    {{ field }}
+                                   <div class="password-icon"></div>
+                                <div class="password__control"></div>
+                                   </div>
+                    {% if field.help_text %}
+                        <small style="display: none">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% for error in field.errors %}
+                        <p style="color: red">{{ error }}</p>
+                    {% endfor %}
+
+            {% endfor %}
+
+
+                            <input id="#CallPasswordChangeButton" class="login-submit" type="submit" value="Изменить">
+
+                        </form>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+
+
+    <script>
+
+
+
+ </script>
+
+{% endblock %}
+
+
+

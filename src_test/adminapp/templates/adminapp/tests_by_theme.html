@@ -1,0 +1,43 @@
+{%extends 'adminapp/base.html'%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{%block content%}
+ <button class="new_product">
+            <a href="{% url 'admin:test_create' theme.pk %}">
+                новый тест
+            </a>
+        </button>
+<h1>вот найденные тесты</h1>
+<h1>{{theme.name}}</h1>
+
+
+{%for test in tests%}
+
+<p>
+    <a href="{% url 'admin:tests_questions' test.pk%}">
+        {{test.name}}
+    </a>
+
+        | Создатель:{{test.creator}} |
+
+     <button class="new_product">
+            <a href="{% url 'admin:edit_test_name' test.pk %}">
+                изменить название теста
+            </a>
+        </button>
+</p>
+<p>{{test.date}}</p>
+{%endfor%}
+
+
+
+{%endblock%}
+
+</body>
+</html>
