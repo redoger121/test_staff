@@ -26,9 +26,9 @@ def hh_ru(url, theme):
                     img = div.find('img', attrs={'class': 'vacancy-serp-item-logo'})
 
 
-                    content = div.find('div', attrs={'class': 'g-user-content'})
-
-                    true_content = content.find('div', attrs={'class': "bloko-text"})
+                    # content = div.find('div', attrs={'class': 'g-user-content'})
+                    # print(content)
+                    true_content = div.find('a', attrs={'class': "bloko-link"})
                     print(true_content.text)
 
                     company = div.find('div', attrs={'class': 'vacancy-serp-item__meta-info-company'})
@@ -57,68 +57,70 @@ def hh_ru(url, theme):
         else:
             errors.append({'url': url, 'title': 'Page not response'})
 
+        print(jobs)
     return jobs, errors
 
 
-def job_ru(url, theme):
-    errors = []
-    jobs = []
-    if url:
-
-        resp = requests.get(url, headers=headers)
-        if resp.status_code == 200:
-
-            soup = BS(resp.content, 'html.parser')
-            main_div = soup.find('div', attrs={'class':'span-mr-wrap vac-list'})
-
-            if main_div:
-
-                div_list = main_div.find_all('section', attrs={'data-test': 'vacancies-list-item'})
-
-                for div in div_list:
-                    span=div.find('span')
-                    span.decompose()
-                    title = div.find('a', attrs={'data-test': 'vacancy-item-header'})
-                    real_title=title.text
-                    pay=div.find('div', attrs={'class': 'span-m'})
-                    href = title['href']
-                    true_pay=pay.find('h3')
-                    true_pay2=true_pay.find('a')
-                    true_pay2.decompose()
-
-
-                    real_pay = pay.find('h3')
-
-                    content = div.find('div', attrs={'itemprop': 'description'})
-                    company = div.find('div', attrs={'class': 'company'})
-                    a_img=div.find('a', attrs={'class': 'logo'})
-
-
-                    if a_img!=None:
-                        img=a_img.find('img')
-                        real_img=(img['src'])
-                    else:
-                        real_img=''
-                    print(real_img)
-
-
-                    if hasattr(real_pay, 'text'):
-                        true_pay = real_pay.text
-                    else:
-
-                        true_pay = 'Зарплата не указана'
-                    jobs.append({'title':real_title,
-                                 'href': href,
-                                 'content': content.text,
-                                 'company': company.text,
-                                 'pay':true_pay,
-                                 'theme': theme,
-                                 'img_href': real_img,
-                                 })
-
-        else:
-            errors.append({'url': url, 'title': 'Page not response'})
-    return jobs, errors
+# def job_ru(url, theme):
+#     errors = []
+#     jobs = []
+#     if url:
+#
+#         resp = requests.get(url, headers=headers)
+#         if resp.status_code == 200:
+#
+#             soup = BS(resp.content, 'html.parser')
+#             main_div = soup.find('div', attrs={'class':'span-mr-wrap vac-list'})
+#
+#             if main_div:
+#
+#                 div_list = main_div.find_all('section', attrs={'data-test': 'vacancies-list-item'})
+#
+#                 for div in div_list:
+#                     span=div.find('span')
+#                     span.decompose()
+#                     title = div.find('a', attrs={'data-test': 'vacancy-item-header'})
+#                     real_title=title.text
+#                     pay=div.find('div', attrs={'class': 'span-m'})
+#                     href = title['href']
+#                     true_pay=pay.find('h3')
+#                     true_pay2=true_pay.find('a')
+#                     true_pay2.decompose()
+#
+#
+#                     real_pay = pay.find('h3')
+#
+#                     content = div.find('div', attrs={'itemprop': 'description'})
+#                     company = div.find('div', attrs={'class': 'company'})
+#                     a_img=div.find('a', attrs={'class': 'logo'})
+#
+#
+#                     if a_img!=None:
+#                         img=a_img.find('img')
+#                         real_img=(img['src'])
+#                     else:
+#                         real_img=''
+#                     print(real_img)
+#
+#
+#                     if hasattr(real_pay, 'text'):
+#                         true_pay = real_pay.text
+#                     else:
+#
+#                         true_pay = 'Зарплата не указана'
+#                     jobs.append({'title':real_title,
+#                                  'href': href,
+#                                  'content': content.text,
+#                                  'company': company.text,
+#                                  'pay':true_pay,
+#                                  'theme': theme,
+#                                  'img_href': real_img,
+#                                  })
+#
+#
+#         else:
+#             errors.append({'url': url, 'title': 'Page not response'})
+#     return jobs, errors
 
 
 

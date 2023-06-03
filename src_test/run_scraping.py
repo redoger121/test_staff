@@ -10,7 +10,8 @@ django.setup()
 
 from sqlite3 import DatabaseError
 import datetime as dt
-from user_office.parsers import hh_ru, job_ru
+from user_office.parsers import hh_ru
+    # job_ru
 from tests.models import ThemeOfTests
 from user_office.models import Vacancy, Error, Url
 
@@ -19,7 +20,7 @@ Vacancy.objects.filter(timestamp__lte=ten_days_ago).delete()
 
 parsers = (
     (hh_ru, 'hh.ru'),
-    (job_ru, 'job.ru')
+    # (job_ru, 'job.ru')
 
 )
 

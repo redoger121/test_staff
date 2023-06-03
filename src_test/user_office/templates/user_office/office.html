@@ -39,7 +39,7 @@
 
                     <div class="user__short-info__wrapper user-page__custom-wrapper">
                         <div class="user__short-info">
-                            <img src="/media/{{user.avatar|default:'../../media/images/src/ec12a8cf5b74b9be1831df982c9e5478.jpg' }}  " alt="" class="profile__avatar">
+                            <img src="/media/{{user.avatar |default:'../../media/images/src/user-photo.svg'}}  " alt="" class="profile__avatar">
                             <p class="username">{{user.username}}</p>
                             <p class="registration-date">На сайте с {{user.date_joined | date:"d.m.Y" }}</p>
                         </div>

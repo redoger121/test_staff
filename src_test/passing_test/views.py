@@ -123,6 +123,7 @@ def list_of_passed_tests(request):
         'rait_list': rait_list,
         'passed_tests': passed_tests,
     }
+    print(rait_list)
 
     return render(request, 'passing_test/list_of_passed_tests.html', context)
 

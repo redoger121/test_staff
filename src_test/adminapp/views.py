@@ -140,8 +140,9 @@ def user_delete(request, pk):
     user = get_object_or_404(TestingUser, pk=pk)
 
     if request.method == 'POST':
-        user.is_active = False
-        user.save()
+        # user.is_active = False
+        # user.save()
+        user.delete()
         return HttpResponseRedirect(reverse('admin:users'))
     context = {
         'user_to_delete': user,

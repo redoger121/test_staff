@@ -72,7 +72,7 @@
 
             <div class="block_heading">
                 <div class="block_heading__text">
-                    <h2> <a href="#" class="heading__title">Актуальные тесты</a></h2>
+                    <h2> <a href="{% url 'tests:actual_tests'%}" class="heading__title">Актуальные тесты</a></h2>
                     <p class="heading__description">Самые высокооцененные тесты от нащих автров за неделю</p>
                 </div>
                 <a href="{% url 'tests:tests'%}" class="heading__button">Все тесты</a>
@@ -85,7 +85,7 @@
                     <div class="slider__wrapper">
                     <a href="{%url 'tests:test_questions' test.pk%}">
                     <div class="slider-item__img">
-                        <img class="slider__main-img" src="media/images/src/ec12a8cf5b74b9be1831df982c9e5478.jpg" alt="">
+                        <img class="slider__main-img" src="/media/{{ test.image|default:'tests_images/ecdbbf274b437f948cc11d401fe010b1.jpg' }}" alt="">
 
                         <div class="creator-info">
                             <img src="media/images/src/user-photo.svg" alt="" class="creator-avatar">
@@ -118,7 +118,7 @@
         <div class="container">
             <div class="block_heading">
                 <div class="block_heading__text">
-                    <h2> <a href="#" class="heading__title">Новые тесты</a></h2>
+                    <h2> <a href="{% url 'tests:new_tests'%}" class="heading__title">Новые тесты</a></h2>
                     <p class="heading__description">Самые свежие тесты от нащих автров</p>
                 </div>
                 <a href="{% url 'tests:tests'%}" class="heading__button">Все тесты</a>
@@ -137,7 +137,7 @@
                     <div class="slider__wrapper">
                     <a href="{%url 'tests:test_questions' test.pk%}">
                     <div class="slider-item__img">
-                        <img class="slider__main-img" src="media/images/src/ec12a8cf5b74b9be1831df982c9e5478.jpg" alt="">
+                        <img class="slider__main-img" src="/media/{{ test.image|default:'tests_images/ecdbbf274b437f948cc11d401fe010b1.jpg' }}" alt="">
 
                         <div class="creator-info">
                             <img src="media/images/src/user-photo.svg" alt="" class="creator-avatar">

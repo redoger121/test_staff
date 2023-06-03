@@ -186,7 +186,7 @@
                     {%else%}
 
                     {%for object in rait_list%}
-                    {%if object.rait_test == test.pk%}
+                    {%if object.test == test.test%}
                     <div class="star__wrapper">
                         <p class="star_text">Вы оценили тест на {{object.rait}}</p>
                     </div>
