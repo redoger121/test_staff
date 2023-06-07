@@ -30,7 +30,7 @@
         <div class="user-profile">
             <div class="user__short-info__wrapper">
                 <div class="user__short-info">
-                    <img src=" /media/{{ edit_form.avatar.value}}" alt=""
+                    <img src="/media/{{user.avatar |default:'../../media/images/src/user-photo.svg'}}" alt=""
                          class="profile__avatar lol-image">
                     <p class="username">{{edit_form.username.value}}</p>
                     <p class="registration-date">На сайте с {{edit_form.date_joined.value}}</p>
